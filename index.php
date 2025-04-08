@@ -3,36 +3,38 @@
 $host="localhost";
 $user="root";
 $pass="";
+$db="loffe";
+$conn=mysqli_connect($host,$user,$pass,$db);
 
-$conn=mysqli_connect($host,$user,$pass,"loffe");
 
-
-$name="Inget namn";
 if(isset($_POST['btn'])){
     $name=$_POST['name'];
-    $sql="INSERT INTO tblName(name) VALUES ('$name')";
+    $sql="INSERT INTO tblname(name) VALUES ('$name')";
     $result=mysqli_query($conn,$sql);
 }
 
-$sql="SELECT * FROM tblName";
+$sql="SELECT * FROM tblname ORDER BY name ASC LIMIT 5";
 $result=mysqli_query($conn,$sql);
 
 ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Form</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Form</h1>
-    <h2><?php
-    while($rad=mysqli_fetch_assoc($result)){ ?>
-       <p><?=$rad['name']?></p>
-  <?php  }
-    ?></h2>
+    <h1>Lägg in namn för åsiktsregistrering</h1>
     <form action="index.php" method="POST">
-        <input type="text" name="name" placeholder="Enter your name" required>
-        <input type="submit" name="btn" value="Tryck här">
+        <label for="name">Namn:</label>
+        <input type="text" id="name" name="name" required placeholder="Skriv in namn här">
+        <input type="submit" name="btn" value="Registrera">
     </form>
+    <h2>Här är registrerade namn</h2>
+    <?php while($rad=mysqli_fetch_assoc($result)){ ?>
+
+        <p><?=$rad['name']?></p>
+
+  <?php  }  ?>
+    
 </body>
 </html>
