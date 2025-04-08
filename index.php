@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <?php
-$host="localhost";
-$user="root";
-$pass="";
-$db="loffe";
-$conn=mysqli_connect($host,$user,$pass,$db);
-
+require_once("inc.php");
+$conn=conn("loffe");
 
 if(isset($_POST['btn'])){
     $name=$_POST['name'];
@@ -23,6 +19,7 @@ $result=mysqli_query($conn,$sql);
     <title>Document</title>
 </head>
 <body>
+    <p><?php if(isset($_SESSION['user'])){echo $_SESSION['user'];}?></p>
     <h1>Lägg in namn för åsiktsregistrering</h1>
     <form action="index.php" method="POST">
         <label for="name">Namn:</label>
